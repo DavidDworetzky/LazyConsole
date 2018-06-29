@@ -5,6 +5,7 @@
     <Authors>David Dworetzky</Authors>
     <Company />
     <Description>Lazy Console Utility -&gt; Just pass in a type with methods and let it run!</Description>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>
