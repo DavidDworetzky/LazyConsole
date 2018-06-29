@@ -16,7 +16,8 @@ namespace LazyConsole
             InitializActionsFromClass(t);
             MenuLoop();
         }
-        public static Dictionary<char, Tuple<string, Action>> Actions = new Dictionary<char, Tuple<string, Action>>();
+
+        private static Dictionary<char, Tuple<string, Action>> Actions = new Dictionary<char, Tuple<string, Action>>();
 
         /// <summary>
         /// We use reflection to populate our list of actions
