@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>David Dworetzky</Authors>
+    <Company />
+    <Description>Lazy Console Utility -&gt; Just pass in a type with methods and let it run!</Description>
   </PropertyGroup>
 
 </Project>
