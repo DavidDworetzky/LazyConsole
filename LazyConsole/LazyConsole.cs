@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -36,11 +37,23 @@ namespace LazyConsole
                 //for each public method in target type
                 foreach (var method in methods)
                 {
-                    //create delegate action for static method
-                    Action action = (Action)Delegate.CreateDelegate(typeof(Action), method);
-                    //get enumerator for keys list 
+                    if (method.ReturnType == typeof(void))
+                    {
+                        //create delegate action for static method
+                        Action action = (Action) Delegate.CreateDelegate(typeof(Action), method);
+                        //get enumerator for keys list 
 
-                    actions.Add((char)enumerator.Current, Tuple.Create(method.Name, action));
+                        actions.Add((char) enumerator.Current, Tuple.Create(method.Name, action));
+                    }
+                    else
+                    {
+                        //get delegate first
+                        var dl = Delegate.CreateDelegate(Expression.GetDelegateType(method.ReturnType), method);
+                        //non void, we need to convert this differently
+                        Action action = new Action((() => dl.DynamicInvoke()));
+
+                        actions.Add((char)enumerator.Current, Tuple.Create(method.Name, action));
+                    }
 
                     enumerator.MoveNext();
                 }
