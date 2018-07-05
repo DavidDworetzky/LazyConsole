@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace LazyConsole
 {
@@ -20,10 +21,14 @@ namespace LazyConsole
         private static Dictionary<char, Tuple<string, Action>> Actions = new Dictionary<char, Tuple<string, Action>>();
 
         /// <summary>
-        /// We use reflection to populate our list of actions
+        /// Helper method to generate our actions...
         /// </summary>
-        private static void InitializActionsFromClass(Type cl)
+        /// <param name="cl"></param>
+        /// <returns></returns>
+        public static Dictionary<char, Tuple<string, Action>> GenerateActions(Type cl)
         {
+            var actions = new Dictionary<char, Tuple<string, Action>>();
+
             using (var enumerator = Utilities.AvailableKeys.KeySelectionList.GetEnumerator())
             {
                 enumerator.MoveNext();
@@ -35,11 +40,20 @@ namespace LazyConsole
                     Action action = (Action)Delegate.CreateDelegate(typeof(Action), method);
                     //get enumerator for keys list 
 
-                    Actions.Add((char)enumerator.Current, Tuple.Create(method.Name, action));
+                    actions.Add((char)enumerator.Current, Tuple.Create(method.Name, action));
 
                     enumerator.MoveNext();
                 }
             }
+            return actions;
+        }
+
+        /// <summary>
+        /// We use reflection to populate our list of actions
+        /// </summary>
+        private static void InitializActionsFromClass(Type cl)
+        {
+            Actions = GenerateActions(cl);
         }
         private static void MenuLoop()
         {
