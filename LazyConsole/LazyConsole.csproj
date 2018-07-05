@@ -6,6 +6,10 @@
     <Company />
     <Description>Lazy Console Utility -&gt; Just pass in a type with methods and let it run!</Description>
     <Version>1.0.3</Version>
+    <Copyright />
+    <PackageTags>Console Utility</PackageTags>
+    <RepositoryUrl>https://github.com/DavidDworetzky/LazyConsole</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
