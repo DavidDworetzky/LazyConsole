@@ -29,21 +29,24 @@ namespace LazyConsole
         public static Dictionary<char, Tuple<string, Action>> GenerateActions(Type cl)
         {
             var actions = new Dictionary<char, Tuple<string, Action>>();
+            var methods = cl.GetMethods(BindingFlags.Public | BindingFlags.Static);
+            return GetActionForMethods(methods, Utilities.AvailableKeys.KeySelectionList);
+        }
 
+        private static Dictionary<char, Tuple<string, Action>> GetActionForMethods(MethodInfo[] methods, List<char> availableKeys)
+        {
+            var actions = new Dictionary<char, Tuple<string, Action>>();
             using (var enumerator = Utilities.AvailableKeys.KeySelectionList.GetEnumerator())
             {
-                enumerator.MoveNext();
-                var methods = cl.GetMethods(BindingFlags.Public | BindingFlags.Static);
-                //for each public method in target type
                 foreach (var method in methods)
                 {
                     if (method.ReturnType == typeof(void))
                     {
                         //create delegate action for static method
-                        Action action = (Action) Delegate.CreateDelegate(typeof(Action), method);
+                        Action action = (Action)Delegate.CreateDelegate(typeof(Action), method);
                         //get enumerator for keys list 
 
-                        actions.Add((char) enumerator.Current, Tuple.Create(method.Name, action));
+                        actions.Add((char)enumerator.Current, Tuple.Create(method.Name, action));
                     }
                     else
                     {
@@ -57,8 +60,46 @@ namespace LazyConsole
 
                     enumerator.MoveNext();
                 }
+
             }
             return actions;
+        }
+
+        /// <summary>
+        /// Generates pages of potential actions for consumption by LazyConsole
+        /// </summary>
+        /// <param name="cl"></param>
+        /// <returns></returns>
+        public static Dictionary<char, Dictionary<char, Tuple<string, Action>>> GeneratePagedActions(Type cl)
+        {
+            int i = 0;
+            var methods = cl.GetMethods(BindingFlags.Public | BindingFlags.Static);
+            //calculate number of pages based off of methods
+            var methodList = methods.ToList();
+            int count = methodList.Count;
+
+            int keyCount = Utilities.AvailableKeys.KeySelectionList.Count;
+
+            int numberOfPages = (int)Math.Floor((double)(count / keyCount)) + 1;
+            var pages = new Dictionary<char, Dictionary<char, Tuple<string, Action>>>();
+
+            using (var enumerator = Utilities.AvailableKeys.KeySelectionList.GetEnumerator())
+            {
+                for (int j = 0; j < numberOfPages; j++)
+                {
+                    //get method boundaries
+                    int lower = j * keyCount;
+                    int upper = Math.Max((j + 1) * keyCount, methodList.Count);
+                    var subsetMethods = methodList.GetRange(lower, upper - lower).ToList().ToArray();
+                    //generate page
+                    var page = GetActionForMethods(subsetMethods, Utilities.AvailableKeys.KeySelectionList);
+                    //add page
+                    pages.Add(enumerator.Current, page);
+                    //get next key index
+                    enumerator.MoveNext();
+                }
+            }
+            return pages;
         }
 
         /// <summary>
