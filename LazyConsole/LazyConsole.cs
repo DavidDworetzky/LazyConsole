@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LazyConsole.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -21,6 +22,8 @@ namespace LazyConsole
 
         private static Dictionary<char, Tuple<string, Action>> Actions = new Dictionary<char, Tuple<string, Action>>();
 
+        private static ConsoleExceptionType ConsoleExceptionType = ConsoleExceptionType.Show;
+
         /// <summary>
         /// Helper method to generate our actions...
         /// </summary>
@@ -38,6 +41,8 @@ namespace LazyConsole
             var actions = new Dictionary<char, Tuple<string, Action>>();
             using (var enumerator = Utilities.AvailableKeys.KeySelectionList.GetEnumerator())
             {
+                //enumerator.MoveNext() once 
+                enumerator.MoveNext();
                 foreach (var method in methods)
                 {
                     if (method.ReturnType == typeof(void))

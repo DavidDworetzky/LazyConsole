@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LazyConsole", "LazyConsole\LazyConsole.csproj", "{4CBDA154-959E-4EFB-8D19-9F24373AEA36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyConsole.Tests", "LazyConsole.Tests\LazyConsole.Tests.csproj", "{95C0C718-CF34-4C34-BF1C-1D0361A9C31C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LazyConsole.Tests", "LazyConsole.Tests\LazyConsole.Tests.csproj", "{95C0C718-CF34-4C34-BF1C-1D0361A9C31C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyConsole.Tests.Interactive", "LazyConsole.Tests.Interactive\LazyConsole.Tests.Interactive.csproj", "{A967193E-BBA5-4574-A052-D0D830797DD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{95C0C718-CF34-4C34-BF1C-1D0361A9C31C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95C0C718-CF34-4C34-BF1C-1D0361A9C31C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95C0C718-CF34-4C34-BF1C-1D0361A9C31C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A967193E-BBA5-4574-A052-D0D830797DD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A967193E-BBA5-4574-A052-D0D830797DD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A967193E-BBA5-4574-A052-D0D830797DD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A967193E-BBA5-4574-A052-D0D830797DD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
