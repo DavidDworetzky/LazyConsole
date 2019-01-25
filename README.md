@@ -5,4 +5,6 @@ Dead Simple .Net Standard Console Library.
 
 Simply call LazyConsole.StartConsole with the type parameter of a class containing methods that you wish to run from the console.
 
-~~~~ LazyConsole.LazyConsole.StartConsole(typeof(mytype)); ~~~~
+```
+ LazyConsole.LazyConsole.StartConsole(typeof(mytype));
+```
